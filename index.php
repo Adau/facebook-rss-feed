@@ -67,6 +67,7 @@ foreach ($page['feed']['data'] as $post) {
     $item
         ->title($post['message'])
         ->description($description)
+        ->contentEncoded($description)
         ->url('https://www.facebook.com/' . $post['id'])
         ->pubDate(strtotime($post['created_time']))
         ->guid($post['id'], true)
