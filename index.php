@@ -11,10 +11,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 $config = parse_ini_file('config.ini');
 
 $fb = new Facebook([
-  'app_id' => $config['facebook_app_id'],
-  'app_secret' => $config['facebook_app_secret'],
-  'default_graph_version' => 'v2.10',
-  'default_access_token' => $config['facebook_default_access_token'],
+    'app_id' => $config['facebook_app_id'],
+    'app_secret' => $config['facebook_app_secret'],
+    'default_graph_version' => 'v2.10',
+    'default_access_token' => $config['facebook_app_id'] . '|' . $config['facebook_app_secret']
 ]);
 
 try {
@@ -52,15 +52,15 @@ $channel
 foreach ($page['feed']['data'] as $post) {
     $description = '';
     if (isset($post['picture'])) {
-        $description .= '<p><img src="'. $post['picture'] .'" alt="picture"></p>';
+        $description .= '<p><img src="' . $post['picture'] . '" alt="picture"></p>';
     }
     if (isset($post['description'])) {
-        $description .= '<p>'. $post['description'] .'</p>';
+        $description .= '<p>' . $post['description'] . '</p>';
     } else {
-        $description .= '<p>'. $post['message'] .'</p>';
+        $description .= '<p>' . $post['message'] . '</p>';
     }
     if (isset($post['link'])) {
-        $description .= '<p><a href="'. $post['link'] .'">'. $post['link'] .'</a></p>';
+        $description .= '<p><a href="' . $post['link'] . '">' . $post['link'] . '</a></p>';
     }
 
     $item = new Item();
