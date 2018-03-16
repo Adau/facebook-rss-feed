@@ -21,5 +21,5 @@
 3. Se rendre à l'URL :
 
     ```sh
-    /?page=VilleAnnecy
+    /?page=GitHub
     ```
