@@ -23,5 +23,3 @@
     ```sh
     /?page=GitHub
     ```
-
-Test
