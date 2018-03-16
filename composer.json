@@ -1,0 +1,6 @@
+{
+    "require": {
+        "facebook/graph-sdk": "^5.6",
+        "suin/php-rss-writer": "^1.6"
+    }
+}
