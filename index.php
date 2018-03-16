@@ -25,7 +25,7 @@ try {
             '/%s?fields=%s{%s}',
             $_GET['page'],
             implode(',', array('name', 'about', 'link', 'feed')),
-            implode(',', array('id', 'created_time', 'message', 'description', 'picture,link'))
+            implode(',', array('id', 'created_time', 'message', 'description', 'picture', 'link'))
         )
     );
 } catch (FacebookResponseException $e) {
