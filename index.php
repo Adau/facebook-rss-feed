@@ -25,7 +25,7 @@ try {
             '/%s?fields=%s{%s}',
             $_GET['page'],
             implode(',', array('name', 'about', 'link', 'feed')),
-            implode(',', array('id', 'created_time', 'message', 'description', 'picture', 'link'))
+            implode(',', array('id', 'created_time', 'message', 'description', 'full_picture', 'link'))
         )
     );
 } catch (FacebookResponseException $e) {
@@ -51,8 +51,8 @@ $channel
 
 foreach ($page['feed']['data'] as $post) {
     $description = '';
-    if (isset($post['picture'])) {
-        $description .= '<p><img src="' . $post['picture'] . '" alt="picture"></p>';
+    if (isset($post['full_picture'])) {
+        $description .= '<p><img src="' . $post['full_picture'] . '" alt="picture"></p>';
     }
     if (isset($post['description'])) {
         $description .= '<p>' . $post['description'] . '</p>';
