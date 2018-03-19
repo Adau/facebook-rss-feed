@@ -24,8 +24,8 @@ try {
         sprintf(
             '/%s?fields=%s{%s}',
             $_GET['page'],
-            implode(',', array('name', 'about', 'link', 'feed')),
-            implode(',', array('id', 'created_time', 'message', 'description', 'full_picture', 'link'))
+            implode(',', array('id', 'name', 'about', 'link', 'feed')),
+            implode(',', array('id', 'created_time', 'from', 'message', 'description', 'full_picture', 'link'))
         )
     );
 } catch (FacebookResponseException $e) {
@@ -50,29 +50,31 @@ $channel
     ->appendTo($feed);
 
 foreach ($page['feed']['data'] as $post) {
-    $description = '';
-    if (isset($post['full_picture'])) {
-        $description .= '<p><img src="' . $post['full_picture'] . '" alt="picture"></p>';
-    }
-    if (isset($post['description'])) {
-        $description .= '<p>' . $post['description'] . '</p>';
-    } else {
-        $description .= '<p>' . $post['message'] . '</p>';
-    }
-    if (isset($post['link'])) {
-        $description .= '<p><a href="' . $post['link'] . '">' . $post['link'] . '</a></p>';
-    }
+    if (isset($post['from']) && $post['from']['id'] == $page['id']) {
+        $description = '';
+        if (isset($post['full_picture'])) {
+            $description .= '<p><img src="' . $post['full_picture'] . '" alt="picture"></p>';
+        }
+        if (isset($post['description'])) {
+            $description .= '<p>' . $post['description'] . '</p>';
+        } else {
+            $description .= '<p>' . $post['message'] . '</p>';
+        }
+        if (isset($post['link'])) {
+            $description .= '<p><a href="' . $post['link'] . '">' . $post['link'] . '</a></p>';
+        }
 
-    $item = new Item();
-    $item
-        ->title($post['message'])
-        ->description($description)
-        ->contentEncoded($description)
-        ->url('https://www.facebook.com/' . $post['id'])
-        ->pubDate(strtotime($post['created_time']))
-        ->guid($post['id'], true)
-        ->preferCdata(true)
-        ->appendTo($channel);
+        $item = new Item();
+        $item
+            ->title($post['message'])
+            ->description($description)
+            ->contentEncoded($description)
+            ->url('https://www.facebook.com/' . $post['id'])
+            ->pubDate(strtotime($post['created_time']))
+            ->guid($post['id'], true)
+            ->preferCdata(true)
+            ->appendTo($channel);
+    }
 }
 
 echo $feed->render();
