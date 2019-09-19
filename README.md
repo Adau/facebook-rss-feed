@@ -12,10 +12,10 @@
     https://developers.facebook.com/apps/
     ```
 
-2. Copier le fichier de configuration et ajouter les identifiants :
+2. Copier le fichier de configuration et remplir les variables d'environnement :
 
     ```sh
-    cp config.ini.default config.ini
+    cp .env.example .env
     ```
 
 3. Se rendre à l'URL :

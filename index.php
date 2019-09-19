@@ -8,13 +8,15 @@ use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 
 require_once __DIR__ . '/vendor/autoload.php';
-$config = parse_ini_file('config.ini');
+
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
 
 $fb = new Facebook([
-    'app_id' => $config['facebook_app_id'],
-    'app_secret' => $config['facebook_app_secret'],
+    'app_id' => getenv('FACEBOOK_APP_ID'),
+    'app_secret' => getenv('FACEBOOK_APP_SECRET'),
     'default_graph_version' => 'v2.10',
-    'default_access_token' => $config['facebook_app_id'] . '|' . $config['facebook_app_secret']
+    'default_access_token' => getenv('FACEBOOK_APP_ID') . '|' . getenv('FACEBOOK_APP_SECRET')
 ]);
 
 try {
